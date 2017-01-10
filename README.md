@@ -5,7 +5,7 @@
     # python manager.py runserver
 
 # Test
-    >>> python manager.py shell
+    # python manager.py shell
     >>> db.create_all()
     >>> import uuid
     >>> user = User(email=admin@example.com, role='admin', user_id=uuid.uuid4().hex)
