@@ -1,0 +1,7 @@
+Flask-RESTful==0.3.5
+marshmallow==2.10.5
+Flask-SQLAlchemy==2.1
+Flask-Script==2.0.5
+ipython==5.1.0
+httpie==0.9.9
+Flask==0.12
