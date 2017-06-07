@@ -36,8 +36,8 @@ class UserLoginSchema(Schema):
     @post_load
     def make_user(self, data):
         user = User.query.filter_by(email=data['email']).first()
-        if not user.verify_password(data['password']):
-            abort(401, 'Invalid Password')
+        if not user or user.verify_password(data['password']):
+            abort(401, 'Invalid UserName／Password')
         return user
 
 
