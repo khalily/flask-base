@@ -32,10 +32,8 @@ class UserController(Resource):
         else:
             abort(403)
 
-        schema = UserSchema()
-        user_info, errors = schema.load(request.get_json())
-        if errors:
-            abort(400, errors)
+        schema = UserSchema(strict=True)
+        user_info = schema.load(request.get_json(force=True)).data
 
         # ensure email unique
         if user_info.has_key('email') and \
@@ -61,12 +59,8 @@ class UsersController(Resource):
 
     @authenticate('admin')
     def post(self):
-        schema = UserRegisterSchema()
-        user, errors = schema.load(request.get_json())
-        if errors:
-            abort(400, errors)
-
-        user.user_id = uuid.uuid4().hex
+        schema = UserRegisterSchema(strict=True)
+        user = schema.load(request.get_json(force=True)).data
         db.session.add(user)
 
         return { 'user': UserSchema().dump(user).data }, 201

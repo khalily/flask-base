@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import uuid
+
 from flask import abort
 from marshmallow import Schema, fields, validate, validates, post_load
 from marshmallow import ValidationError
@@ -24,6 +26,9 @@ class UserRegisterSchema(Schema):
     def make_user(self, data):
         user = User(email=data['email'])
         user.password = data['password']
+        user.user_id = uuid.uuid4().hex
+        user.role = data['role'] if data.has_key('role') else 'member'
+
         return user
 
 
